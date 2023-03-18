@@ -14,13 +14,16 @@ class CustomAuthController extends Controller
         return view('auth.login');
     }
 
+    
+    
     public function customLogin(Request $request)
     {
+        $email = $request->get('email');
+        $password = $request->get('password');
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
-
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard')
